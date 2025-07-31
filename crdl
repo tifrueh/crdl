@@ -14,11 +14,9 @@ if [ $# -lt 4 -o $# -gt 5 ]; then
     printf '%s\n' "$help"
     exit 1
 elif [ $# -eq 4 ]; then
-    volume_opt="--yes-playlist"
-    volume_cmd="--yes-playlist"
+    volume_filter=""
 else
-    volume_opt="--exec"
-    volume_cmd="mv %(filepath)q %(filepath)q.tmp;ffmpeg -i %(filepath)q.tmp -map 0 -c:v copy -c:s copy -filter:a 'volume=${5}' %(filepath)q;rm %(filepath)q.tmp"
+    volume_filter="-filter:a 'volume=${5}'"
 fi
 
 # Select correct URL.
@@ -39,10 +37,11 @@ yt-dlp \
     --yes-playlist \
     --concurrent-fragments 6 \
     --output "Critical.Role.C${1}E%(autonumber-1+${4})03d.%(title)s.%(ext)s" \
-    --format "(bv*[vcodec~='^((he|a)vc|h26[45])']+ba) / (bv*+ba/b)" \
-    --remux-video 'mp4' \
+    --format "bv*[vcodec~='^((he|a)vc|h26[45])']+ba" \
     --embed-subs \
     --embed-thumbnail \
     --convert-thumbnails 'png' \
-    "$volume_opt" "$volume_cmd" \
+    --merge-output-format 'mkv' \
+    --remux-video 'mkv' \
+    --exec "mv %(filepath)q %(filepath)q.tmp;ffmpeg -i %(filepath)q.tmp -map 0 -map_metadata 0 -c:v copy -c:s webvtt -c:a aac -f matroska ${volume_filter} %(filepath)q;rm %(filepath)q.tmp" \
     $url
