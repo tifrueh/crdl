@@ -31,6 +31,21 @@ else
     exit 1
 fi
 
+tmpfile="$(mktemp)"
+
+manual_ppc="mv %(filepath)q '%(filepath)s.tmp';
+ffmpeg -y -i '%(filepath)s.tmp' -map 0:v:1 -c copy -f image2 ${tmpfile};
+ffmpeg -y -i '%(filepath)s.tmp' \
+-map 0 -map -0:v:1 \
+-c:v copy -c:s webvtt -c:a aac \
+${volume_filter} \
+-attach ${tmpfile} -metadata:s:3 mimetype=image/png -metadata:s:3 filename=cover.png \
+-f matroska \
+%(filepath)q;
+rm '%(filepath)s.tmp';
+rm ${tmpfile};
+"
+
 # Invoke yt-dlp.
 yt-dlp \
     --playlist-items "${2}:${3}" \
@@ -39,9 +54,10 @@ yt-dlp \
     --output "Critical.Role.C${1}E%(autonumber-1+${4})03d.%(title)s.%(ext)s" \
     --format "bv*[vcodec~='^((he|a)vc|h26[45])']+ba" \
     --embed-subs \
+    --convert-subs 'vtt' \
     --embed-thumbnail \
     --convert-thumbnails 'png' \
     --merge-output-format 'mkv' \
     --remux-video 'mkv' \
-    --exec "mv %(filepath)q %(filepath)q.tmp;ffmpeg -i %(filepath)q.tmp -map 0 -map_metadata 0 -c:v copy -c:s webvtt -c:a aac -f matroska ${volume_filter} %(filepath)q;rm %(filepath)q.tmp" \
+    --exec "$manual_ppc" \
     $url
