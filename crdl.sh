@@ -1,6 +1,6 @@
 #!/bin/sh
 
-help='usage: download campaign from to autonumber [ volume ]
+help='usage: campaign from to autonumber [ volume ]
 
 options:
     campaign      The campaign to download from.
