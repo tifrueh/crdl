@@ -14,7 +14,7 @@ if [ $# -lt 4 -o $# -gt 5 ]; then
     printf '%s\n' "$help"
     exit 1
 elif [ $# -eq 4 ]; then
-    volume_filter=""
+    volume_filter="-c:a copy"
 else
     volume_filter="-filter:a 'volume=${5}'"
 fi
@@ -31,20 +31,7 @@ else
     exit 1
 fi
 
-tmpfile="$(mktemp)"
-
-manual_ppc="mv %(filepath)q '%(filepath)s.tmp';
-ffmpeg -y -i '%(filepath)s.tmp' -map 0:v:1 -c copy -f image2 ${tmpfile};
-ffmpeg -y -i '%(filepath)s.tmp' \
--map 0 -map -0:v:1 \
--c:v copy -c:s webvtt -c:a aac \
-${volume_filter} \
--attach ${tmpfile} -metadata:s:3 mimetype=image/png -metadata:s:3 filename=cover.png \
--f matroska \
-%(filepath)q;
-rm '%(filepath)s.tmp';
-rm ${tmpfile};
-"
+manual_ppc="mv %(filepath)q '%(filepath)s.tmp';ffmpeg -y -i '%(filepath)s.tmp' -map 0 -c:v copy -c:s copy ${volume_filter} -f mp4 %(filepath)q;rm '%(filepath)s.tmp'"
 
 # Invoke yt-dlp.
 yt-dlp \
@@ -52,12 +39,12 @@ yt-dlp \
     --yes-playlist \
     --concurrent-fragments 6 \
     --output "Critical.Role.C${1}E%(autonumber-1+${4})03d.%(title)s.%(ext)s" \
-    --format "bv*[vcodec~='^((he|a)vc|h26[45])']+ba" \
+    --format "bv*[vcodec~='^((he|a)vc|h26[45])']+ba[acodec~='^(aac|mp4a.*)']" \
     --embed-subs \
-    --convert-subs 'vtt' \
+    --sub-format 'srt' \
     --embed-thumbnail \
     --convert-thumbnails 'png' \
-    --merge-output-format 'mkv' \
-    --remux-video 'mkv' \
+    --merge-output-format 'mp4' \
+    --remux-video 'mp4' \
     --exec "$manual_ppc" \
     $url
