@@ -54,7 +54,7 @@ elif [ "$1" = 'AU' ]; then
     prefix="Critical.Role.AU%(autonumber-1+${4})03d."
 else
     url="$1"
-    prefix="%(autonumber-1+${4}03d.)"
+    prefix="%(autonumber-1+${4}03)d."
 fi
 
 manual_ppc="mv %(filepath)q '%(filepath)s.tmp';ffmpeg -y -i '%(filepath)s.tmp' -map 0 -c:v copy -c:s copy ${volume_filter} -f mp4 %(filepath)q;rm '%(filepath)s.tmp'"
