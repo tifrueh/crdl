@@ -72,5 +72,6 @@ yt-dlp \
     --convert-thumbnails 'png' \
     --merge-output-format 'mp4' \
     --remux-video 'mp4' \
+    --replace-in-metadata 'title' ' \| .* \| Episode [0-9]*' '' \
     --exec "$manual_ppc" \
     $url
