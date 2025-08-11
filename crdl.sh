@@ -1,6 +1,8 @@
 #!/bin/sh
 
-help='usage: campaign from to autonumber [ volume ]
+progname="$(basename $0)"
+
+help="usage: ${progname} <campaign> <from> <to> <autonumber> [ <volume> ]
 
 options:
     campaign      The campaign to download from.
@@ -17,8 +19,7 @@ possible campaign values:
     EXUC          Exandria Unlimited: Calamity
     EXUD          Exandria Unlimited: Divergence
     AU            Age of Umbra
-    url           if none of the above, interpret as URL
-'
+    url           if none of the above, interpret as URL"
 
 # Check argument count and set volume filter if requested.
 if [ $# -lt 4 -o $# -gt 5 ]; then
