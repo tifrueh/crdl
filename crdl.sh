@@ -58,8 +58,6 @@ else
     prefix="%(autonumber-1+${4}03)d."
 fi
 
-manual_ppc="mv %(filepath)q '%(filepath)s.tmp';ffmpeg -y -i '%(filepath)s.tmp' -map 0 -c:v copy -c:s copy ${volume_filter} -f mp4 %(filepath)q;rm '%(filepath)s.tmp'"
-
 # Invoke yt-dlp.
 yt-dlp \
     --playlist-items "${2}:${3}" \
@@ -74,5 +72,7 @@ yt-dlp \
     --merge-output-format 'mp4' \
     --remux-video 'mp4' \
     --replace-in-metadata 'title' ' \| .* \| Episode [0-9]*' '' \
-    --exec "$manual_ppc" \
+    --exec "mv %(filepath)q '%(filepath)s.tmp'" \
+    --exec "ffmpeg -y -i '%(filepath)s.tmp' -map 0 -c:v copy -c:s copy ${volume_filter} -f mp4 %(filepath)q" \
+    --exec "rm '%(filepath)s.tmp'" \
     $url
