@@ -72,6 +72,7 @@ yt-dlp \
     --merge-output-format 'mp4' \
     --remux-video 'mp4' \
     --replace-in-metadata 'title' ' \| .* \| Episode [0-9]*' '' \
+    --replace-in-metadata 'title' ' \| Critical Role \| Campaign [0-9]*, Episode [0-9]*' '' \
     --exec "mv %(filepath)q '%(filepath)s.tmp'" \
     --exec "ffmpeg -y -i '%(filepath)s.tmp' -map 0 -c:v copy -c:s copy ${volume_filter} -f mp4 %(filepath)q" \
     --exec "rm '%(filepath)s.tmp'" \
