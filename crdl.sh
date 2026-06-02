@@ -60,7 +60,7 @@ yt-dlp \
     --playlist-items "${2}:${3}" \
     --yes-playlist \
     --concurrent-fragments 6 \
-    --output "${show} %(meta_title)s.%(ext)s" \
+    --output "%(meta_title)s.%(ext)s" \
     --format "bv*+ba" \
     --write-subs \
     --sub-format 'srt' \
