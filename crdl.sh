@@ -2,14 +2,13 @@
 
 progname="$(basename $0)"
 
-help="usage: ${progname} <campaign> <from> <to> <autonumber> [ <volume> ]
+help="usage: ${progname} <campaign> <from> <to> <autonumber>
 
 options:
     campaign      The campaign to download from.
     from          The playlist item number of the first video.
     to            The playlist item number of the last video.
     autonumber    The episode number of the first video.
-    volume        Set a value for the ffmpeg volume filter.
 
 possible campaign values:
     VM            Campaign 1 – Vox Machina
@@ -25,10 +24,6 @@ possible campaign values:
 if [ $# -lt 4 -o $# -gt 5 ]; then
     printf '%s\n' "$help"
     exit 1
-elif [ $# -eq 4 ]; then
-    volume_filter="-c:a copy"
-else
-    volume_filter="-filter:a 'volume=${5}'"
 fi
 
 # Select correct URL.
