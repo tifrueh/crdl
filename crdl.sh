@@ -12,7 +12,7 @@ options:
 
 possible campaign values:
     VM            Campaign 1 – Vox Machina
-    MN            Campaign 2 – Mighty Nein
+    MN            Campaign 2 – The Mighty Nein
     HB            Campaign 3 – Hells Bells
     EXU           Exandria Unlimited
     EXUC          Exandria Unlimited: Calamity
@@ -29,13 +29,13 @@ fi
 # Select correct URL.
 if [ "$1" = 'VM' ]; then
     url='https://youtube.com/playlist?list=PL1tiwbzkOjQz7D0l_eLJGAISVtcL7oRu_&si=_aR48fnGiVEruCYc'
-    show='C1 - Vox Machina'
+    show='Vox Machina'
 elif [ "$1" = 'MN' ]; then
     url='https://youtube.com/playlist?list=PL1tiwbzkOjQxD0jjAE7PsWoaCrs0EkBH2&si=CxL0i_3ZTPQJ0YQ5'
-    show='C2 - Mighty Nein'
+    show='The Mighty Nein'
 elif [ "$1" = 'HB' ]; then
     url='https://youtube.com/playlist?list=PL1tiwbzkOjQydg3QOkBLG9OYqWJ0dwlxF&si=UiPOXygq34SIvulj'
-    show='C3 - Hells Bells'
+    show='Hells Bells'
 elif [ "$1" = 'EXU' ]; then
     url='https://youtube.com/playlist?list=PL1tiwbzkOjQzSnYHVT8X4pyMIbSX3i4gz&si=VAptRwwPPt2OwB7m'
     show='Exandria Unlimited'
