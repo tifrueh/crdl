@@ -53,8 +53,6 @@ else
     show="Unknown"
 fi
 
-prefix="${show} E%(autonumber-1+${4})03d "
-
 # Invoke yt-dlp.
 yt-dlp \
     --playlist-items "${2}:${3}" \
