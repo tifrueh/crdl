@@ -59,7 +59,7 @@ yt-dlp \
     --concurrent-fragments 6 \
     --format 'bv*+ba' \
     --write-subs \
-    --sub-format 'srt' \
+    --sub-langs 'all,-live_chat' \
     --write-thumbnail \
     --embed-metadata \
     --parse-metadata 'Critical Role:%(meta_show)s' \
