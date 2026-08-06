@@ -17,6 +17,7 @@ possible campaign values:
     EXUC          Exandria Unlimited: Calamity
     EXUD          Exandria Unlimited: Divergence
     AU            Age of Umbra
+    AUS           Age of Umbra: Sallowlands
     url           if none of the above, interpret as URL"
 
 # Check argument count and set volume filter if requested.
@@ -47,6 +48,9 @@ elif [ "$1" = 'EXUD' ]; then
 elif [ "$1" = 'AU' ]; then
     url='https://www.youtube.com/playlist?list=PL1tiwbzkOjQyLAwOfoBe6HjYZMnQbXNaZ'
     season_nr='54'
+elif [ "$1" = 'AUS' ]; then
+    url='https://www.youtube.com/playlist?list=PL1tiwbzkOjQyLAwOfoBe6HjYZMnQbXNaZ'
+    season_nr='55'
 else
     url="$1"
     season_nr="NA"
