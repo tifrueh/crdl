@@ -69,5 +69,6 @@ yt-dlp \
     --parse-metadata 'Critical Role:%(meta_show)s' \
     --parse-metadata '%(title)s:(?P<title>.+) \|.*\|.*Episode (?P<episode_id>\d+).*' \
     --parse-metadata "${season_nr}:%(season_number)s" \
+    --parse-metadata '%(upload_date>%Y-%m-%d)s:%(meta_date)s' \
     --output 'Critical Role S%(season_number)02dE%(episode_id)03d %(title)s.%(ext)s' \
     $url
